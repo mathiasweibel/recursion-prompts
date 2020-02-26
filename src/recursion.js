@@ -26,13 +26,20 @@ var sum = function(array) {
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
+
+// how to write a reduce function that will recurse indefinite nesting?
+
 var arraySum = function(array) {
   if (array.length === 0) return 0;
-  else if (array.length === 1) return sum(array[0]);
+  else if (array.length === 1 && typeof array[0] === 'number') return array[0];
+  else if (array.length === 1 && Array.isArray(array[0])) return arraySum(array[0]);
+  else if (typeof array[0] === 'number') return array[0] + arraySum(array.slice(1));
   else {
-    var sliced1 = array.slice(1);
-    var reducer = (accumulator, currentVal) => accumulator + currentVal;
-    return array[0].reduce(reducer) + arraySum(sliced1);
+    // reduce array[0] and add to arraySum of slice(1)
+    var first = array[0].reduce(function(x, y) {
+      return x + y;
+    }, 0);
+    return first + arraySum(array.slice(1));
   }
 };
 
@@ -61,7 +68,15 @@ var sumBelow = function(n) {
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
+// ? How to keep track of an output array while executing recursion?
+// ! need to visualize recursion
 var range = function(x, y) {
+  var output = [];
+  if (x >= y) return 0;
+  else if (x + 1 === y) return output;
+  else {
+    output.push(x + 1, range(x + 1, y));
+  }
 };
 
 // 7. Compute the exponent of a number.
