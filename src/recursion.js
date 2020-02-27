@@ -27,7 +27,8 @@ var sum = function(array) {
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 
-// how to write a reduce function that will recurse indefinite nesting?
+// ? how to write a reduce function that will recurse indefinite nesting?
+// ? below code probably not the best use of recursion/most concise?
 
 var arraySum = function(array) {
   var cache = [];
@@ -82,13 +83,35 @@ var sumBelow = function(n) {
 // ! need to visualize recursion
 
 var range = function(x, y) {
-  if (x >= y) return [];
-  else if (x + 1 === y) return [];
-  else {
-    return ;
+  if (x + 1 === y || x === y || x === y + 1) {
+    return [];
+  }
+  else if (x + 2 === y || x === y + 2) {
+    return [ (x + y) / 2 ];
+  } else if (x > y) {
+    return range(y, x).reverse();
+  } else {
+    var numbers = range(x, y - 1);
+    numbers.push(y - 1);
+    return numbers;
   }
 };
 
+// BRKN:
+// var range = function(x, y) {
+//   var cache = [];
+//   if (x + 2 == y) return cache.push(x + 1);
+//   if (x + 1 === y || x === y) return [];
+//   // else if (x > y) {
+//   //   cache.concat((x - 1), range(x - 1, y));
+//   // }
+//   else {
+//     cache.concat( x + 1, range(x + 1, y));
+//   }
+//   return cache;
+// };
+
+// BRKN:
 // var range = function(x, y) {
 //   var output = [];
 //   if (x >= y) return 0;
