@@ -135,7 +135,13 @@ var exponent = function(base, exp) {
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
+// :: If recursion seems to be written right, but failing, check for more detailed base cases
+// :: [first] is wrapped in a base case in this function
 var powerOfTwo = function(n) {
+  if (n < 0 || n === 0) return false;
+  else if (n === 1 || n === 2) return true;
+  else if (n % 2 !== 0) return false;
+  else return powerOfTwo(n / 2);
 };
 
 // 9. Write a function that reverses a string.
