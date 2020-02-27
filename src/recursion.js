@@ -19,8 +19,7 @@ var sum = function(array) {
   if (array.length === 0) return 0;
   else if (array.length === 1) return array[0];
   else {
-    var slicedArray = array.slice(1);
-    return array[0] + sum(slicedArray);
+    return array[0] + sum(array.slice(1));
   }
 };
 
@@ -83,32 +82,31 @@ var sumBelow = function(n) {
 // ! need to visualize recursion
 
 var range = function(x, y) {
-  if (x + 1 === y || x === y || x === y + 1) {
-    return [];
-  }
-  else if (x + 2 === y || x === y + 2) {
-    return [ (x + y) / 2 ];
-  } else if (x > y) {
+  var cache = [];
+  if (x + 2 == y) return [x + 1];
+  if (x + 1 === y || x === y) return [];
+  else if (x > y) {
     return range(y, x).reverse();
-  } else {
-    var numbers = range(x, y - 1);
-    numbers.push(y - 1);
-    return numbers;
+  }
+  else {
+    return cache.concat((x + 1), range(x + 1, y));
   }
 };
 
-// BRKN:
+// Alternate:
 // var range = function(x, y) {
-//   var cache = [];
-//   if (x + 2 == y) return cache.push(x + 1);
-//   if (x + 1 === y || x === y) return [];
-//   // else if (x > y) {
-//   //   cache.concat((x - 1), range(x - 1, y));
-//   // }
-//   else {
-//     cache.concat( x + 1, range(x + 1, y));
+//   if (x + 1 === y || x === y || x === y + 1) {
+//     return [];
 //   }
-//   return cache;
+//   else if (x + 2 === y || x === y + 2) {
+//     return [ (x + y) / 2 ];
+//   } else if (x > y) {
+//     return range(y, x).reverse();
+//   } else {
+//     var numbers = range(x, y - 1);
+//     numbers.push(y - 1);
+//     return numbers;
+//   }
 // };
 
 // BRKN:
